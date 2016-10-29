@@ -55,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
 
+                hideUI();           //// TODO: 10/29/2016 Implement hideUI
+                showScore();        //// TODO: 10/29/2016 Implement showScore
+                stateReset();       //// TODO: 10/29/2016 Implement reset FAB and method
+
             }
         };
 
@@ -117,8 +121,6 @@ public class MainActivity extends AppCompatActivity {
 
     void validate(View view)
     {
-        //// TODO: 10/29/2016 To validate button ans
-        //// TODO: 10/29/2016 Call the score method to update score with a parameter
         Button button = (Button)view;
         String buttonAns = button.getText().toString();
         if(buttonAns==String.valueOf(ans))
@@ -134,8 +136,6 @@ public class MainActivity extends AppCompatActivity {
 
     void buttonSetup()
     {
-        //// TODO: 10/29/2016 Select random correct button
-        //// TODO: 10/29/2016 Add button text with random answers
         //// TODO: 10/29/2016 Setup sequence buttonSetup() -> validate() -> updateScore() -> generateEq() -> buttonSetup()
         int index = random.nextInt(3);
         switch (index){
@@ -181,10 +181,19 @@ public class MainActivity extends AppCompatActivity {
         choice4.setText("");
     }
 
-    void timeUp()
+    void hideUI()
     {
 
     }
 
+    void showScore()
+    {
+
+    }
+
+    void stateReset()
+    {
+
+    }
 
 }
