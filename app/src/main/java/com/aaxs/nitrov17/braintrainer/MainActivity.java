@@ -17,9 +17,9 @@ public class MainActivity extends AppCompatActivity {
     TextView timerText,eqText,scoreText,choice1,choice2,choice3,choice4;
     Button start;
     CountDownTimer countDownTimer;
-    Random random;
+    Random random = new Random();
     boolean isTimerStarted=false;
-    int a=0,b=0,ans=0,score=0;
+    int a=0,b=0,ans=0,score=0,totalQ=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 countDownTimer.start();
                 start.setVisibility(View.INVISIBLE);
                 generateEq();
-
             }
         });
 
@@ -74,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            Log.d("onClick",getResourceName(view));
+            //Log.d("onClick",getResourceName(view));
+            buttonSetup();
+            validate(view);
 
         }
     };
@@ -87,27 +88,45 @@ public class MainActivity extends AppCompatActivity {
         ans=a+b;
         eqText.setText(String.valueOf(a)+"+"+String.valueOf(b));
 
+        buttonSetup();
+
     }
 
     void updateScore(int res)
     {
+
+        totalQ++;
+
         if(res==1)
         {
             score++;
             Toast.makeText(this,"Correct!",Toast.LENGTH_SHORT).show();
         }
-        else
+        else if(res==0)
         {
             Toast.makeText(this,"Wrong!",Toast.LENGTH_SHORT).show();
         }
 
+        generateEq();
+
     }
 
 
-    void validate()
+    void validate(View view)
     {
         //// TODO: 10/29/2016 To validate button ans
         //// TODO: 10/29/2016 Call the score method to update score with a parameter
+        Button button = (Button)view;
+        String buttonAns = button.getText().toString();
+        if(buttonAns==String.valueOf(ans))
+        {
+            updateScore(1);
+        }
+        else
+        {
+            updateScore(0);
+        }
+
     }
 
     void buttonSetup()
@@ -115,6 +134,33 @@ public class MainActivity extends AppCompatActivity {
         //// TODO: 10/29/2016 Select random correct button
         //// TODO: 10/29/2016 Add button text with random answers
         //// TODO: 10/29/2016 Setup sequence buttonSetup() -> validate() -> updateScore() -> generateEq() -> buttonSetup()
+        int index = random.nextInt(3);
+        switch (index){
+            case 1:{
+                choice1.setText(String.valueOf(ans));
+                choice2.setText(String.valueOf(ans+random.nextInt(50)));
+                choice3.setText(String.valueOf(ans+random.nextInt(50)));
+                choice4.setText(String.valueOf(ans+random.nextInt(50)));
+            }
+            case 2:{
+                choice2.setText(String.valueOf(ans));
+                choice3.setText(String.valueOf(ans+random.nextInt(50)));
+                choice4.setText(String.valueOf(ans+random.nextInt(50)));
+                choice1.setText(String.valueOf(ans+random.nextInt(50)));
+            }
+            case 3:{
+                choice3.setText(String.valueOf(ans));
+                choice4.setText(String.valueOf(ans+random.nextInt(50)));
+                choice2.setText(String.valueOf(ans+random.nextInt(50)));
+                choice1.setText(String.valueOf(ans+random.nextInt(50)));
+            }
+            case 4:{
+                choice4.setText(String.valueOf(ans));
+                choice1.setText(String.valueOf(ans+random.nextInt(50)));
+                choice2.setText(String.valueOf(ans+random.nextInt(50)));
+                choice3.setText(String.valueOf(ans+random.nextInt(50)));
+            }
+        }
     }
 
     String getResourceName(View view)
