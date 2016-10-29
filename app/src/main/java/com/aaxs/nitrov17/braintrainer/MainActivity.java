@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         choice2.setOnClickListener(onClickListener);
         choice3.setOnClickListener(onClickListener);
         choice4.setOnClickListener(onClickListener);
+        
+        initLayout();
 
 
         countDownTimer = new CountDownTimer(30000,1000) {
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        start.setOnClickListener(new View.OnClickListener() {
+        start.setOnClickListener(new View.OnClickListener() {   //// TODO: 10/29/2016 Implement reset method 
             @Override
             public void onClick(View view) {
 
@@ -107,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"Wrong!",Toast.LENGTH_SHORT).show();
         }
 
+        scoreText.setText(String.valueOf(score)+"/"+String.valueOf(totalQ));
         generateEq();
 
     }
@@ -166,6 +169,21 @@ public class MainActivity extends AppCompatActivity {
     String getResourceName(View view)
     {
         return view.getResources().getResourceName(view.getId());
+    }
+
+    void initLayout()
+    {
+        timerText.setText("30");
+        scoreText.setText("0");
+        choice1.setText("");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+    }
+
+    void timeUp()
+    {
+
     }
 
 
