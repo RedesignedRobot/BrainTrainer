@@ -2,12 +2,20 @@ package com.aaxs.nitrov17.braintrainer;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
+import com.github.javiersantos.materialstyleddialogs.enums.Style;
 
 import java.util.Random;
 
@@ -42,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         choice4.setOnClickListener(onClickListener);
         
         initLayout();
+        showScore();
 
 
         countDownTimer = new CountDownTimer(30000,1000) {
@@ -183,12 +192,36 @@ public class MainActivity extends AppCompatActivity {
 
     void hideUI()
     {
-
+        timerText.setVisibility(View.INVISIBLE);
+        eqText.setVisibility(View.INVISIBLE);
+        scoreText.setVisibility(View.INVISIBLE);
+        choice1.setVisibility(View.INVISIBLE);
+        choice2.setVisibility(View.INVISIBLE);
+        choice3.setVisibility(View.INVISIBLE);
+        choice4.setVisibility(View.INVISIBLE);
     }
 
     void showScore()
     {
-
+        new MaterialStyledDialog.Builder(this)
+                .setTitle("Times's Up!")
+                .setDescription("Hope you have fun.You scored "+ String.valueOf(ans))
+                .setStyle(Style.HEADER_WITH_TITLE)
+                .setPositiveText("Restart")
+                .setNegativeText("Dismiss")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Log.d("a","b");
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Log.d("a","b");
+                    }
+                })
+                .show();
     }
 
     void stateReset()
