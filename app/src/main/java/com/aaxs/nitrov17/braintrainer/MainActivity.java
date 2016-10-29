@@ -1,7 +1,5 @@
 package com.aaxs.nitrov17.braintrainer;
 
-import android.content.DialogInterface;
-import android.icu.util.ValueIterator;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +11,10 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-import static android.R.attr.onClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView timerText,eqText,scoreText,result,choice1,choice2,choice3,choice4;
+    TextView timerText,eqText,scoreText,choice1,choice2,choice3,choice4;
     Button start;
     CountDownTimer countDownTimer;
     Random random;
@@ -33,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
         start=(Button)findViewById(R.id.start);
         eqText=(TextView)findViewById(R.id.eqText);
         scoreText=(TextView)findViewById(R.id.scoreText);
+
+        choice1=(Button)findViewById(R.id.choice1);
+        choice2=(Button)findViewById(R.id.choice2);
+        choice3=(Button)findViewById(R.id.choice3);
+        choice4=(Button)findViewById(R.id.choice4);
+
         choice1.setOnClickListener(onClickListener);
         choice2.setOnClickListener(onClickListener);
         choice3.setOnClickListener(onClickListener);
@@ -64,11 +67,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+            Log.d("onClick",getResourceName(view));
 
         }
     };
@@ -109,6 +115,11 @@ public class MainActivity extends AppCompatActivity {
         //// TODO: 10/29/2016 Select random correct button
         //// TODO: 10/29/2016 Add button text with random answers
         //// TODO: 10/29/2016 Setup sequence buttonSetup() -> validate() -> updateScore() -> generateEq() -> buttonSetup()
+    }
+
+    String getResourceName(View view)
+    {
+        return view.getResources().getResourceName(view.getId());
     }
 
 
