@@ -3,12 +3,9 @@ package com.aaxs.nitrov17.braintrainer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,9 +45,8 @@ public class MainActivity extends AppCompatActivity {
         choice2.setOnClickListener(onClickListener);
         choice3.setOnClickListener(onClickListener);
         choice4.setOnClickListener(onClickListener);
-        
+
         initLayout();
-        showScore();
 
 
         countDownTimer = new CountDownTimer(30000,1000) {
@@ -64,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
 
-                hideUI();           //// TODO: 10/29/2016 Implement hideUI
-                showScore();        //// TODO: 10/29/2016 Implement showScore
-                stateReset();       //// TODO: 10/29/2016 Implement reset FAB and method
+                hideUI();
+                showScore();
+                                    //// TODO: 10/29/2016 Implement reset FAB and method
 
             }
         };
@@ -184,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
     {
         timerText.setText("30");
         scoreText.setText("0");
+        eqText.setText("");
         choice1.setText("");
         choice2.setText("");
         choice3.setText("");
@@ -205,20 +202,20 @@ public class MainActivity extends AppCompatActivity {
     {
         new MaterialStyledDialog.Builder(this)
                 .setTitle("Times's Up!")
-                .setDescription("Hope you have fun.You scored "+ String.valueOf(ans))
+                .setDescription("Hope you have fun.You scored "+ String.valueOf(score)+" with an accuracy of "+String.valueOf((float)(score/totalQ)*100))
                 .setStyle(Style.HEADER_WITH_TITLE)
                 .setPositiveText("Restart")
                 .setNegativeText("Dismiss")
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Log.d("a","b");
+                        stateReset();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Log.d("a","b");
+                        Toast.makeText(MainActivity.this, "Play again?", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .show();
@@ -227,6 +224,33 @@ public class MainActivity extends AppCompatActivity {
     void stateReset()
     {
 
+        a=0;
+        b=0;
+        ans=0;
+        score=0;
+        totalQ=0;
+        timerText.setVisibility(View.VISIBLE);
+        eqText.setVisibility(View.VISIBLE);
+        scoreText.setVisibility(View.VISIBLE);
+        choice1.setVisibility(View.VISIBLE);
+        choice2.setVisibility(View.VISIBLE);
+        choice3.setVisibility(View.VISIBLE);
+        choice4.setVisibility(View.VISIBLE);
+        start.setVisibility(View.VISIBLE);
+
+        resetTimer();
+        initLayout();
+
+    }
+
+    void resetTimer()
+    {
+        countDownTimer.cancel();
+        isTimerStarted=false;
     }
 
 }
+
+
+//// TODO: 10/30/2016 Add progress ring 
+//// TODO: 10/30/2016 Add app intro guide 
