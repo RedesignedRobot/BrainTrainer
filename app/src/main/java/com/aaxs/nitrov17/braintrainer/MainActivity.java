@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
         new TapTargetSequence(this)
                 .targets(
-                        TapTarget.forView(findViewById(R.id.start), "Click here to begin.")
+                        TapTarget.forView(findViewById(R.id.start), "Click here to start playing.")
                         .drawShadow(true)
                         .tintTarget(true)
                         .cancelable(false)
                         ,
-                        TapTarget.forView(findViewById(R.id.scoreText), "Here's the score.")
+                        TapTarget.forView(findViewById(R.id.scoreText), "Here's your score.")
                         .drawShadow(true)
                         .tintTarget(true)
                         .cancelable(false)
@@ -100,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
                 isTimerStarted=true;
                 countDownTimer.start();
                 start.setVisibility(View.INVISIBLE);
+                choice1.setVisibility(View.VISIBLE);
+                choice2.setVisibility(View.VISIBLE);
+                choice3.setVisibility(View.VISIBLE);
+                choice4.setVisibility(View.VISIBLE);
                 generateEq();
             }
         });
@@ -214,6 +218,10 @@ public class MainActivity extends AppCompatActivity {
         choice2.setText("");
         choice3.setText("");
         choice4.setText("");
+        choice1.setVisibility(View.INVISIBLE);
+        choice2.setVisibility(View.INVISIBLE);
+        choice3.setVisibility(View.INVISIBLE);
+        choice4.setVisibility(View.INVISIBLE);
     }
 
     void hideUI()
@@ -231,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
     {
         new MaterialStyledDialog.Builder(this)
                 .setTitle("Times's Up!")
-                .setDescription("Hope you have fun.You scored "+ String.valueOf(score)+" with an accuracy of "+String.valueOf((float)(score/totalQ)*100))
+                .setDescription("Hope you have fun.You scored "+ String.valueOf(score)+" with an accuracy of "+ calcAccu())
                 .setStyle(Style.HEADER_WITH_TITLE)
                 .setPositiveText("Restart")
                 .setNegativeText("Dismiss")
@@ -276,6 +284,12 @@ public class MainActivity extends AppCompatActivity {
     {
         countDownTimer.cancel();
         isTimerStarted=false;
+    }
+
+    String calcAccu()
+    {
+        float val = ((float)score/(float)totalQ)*100;
+        return String.valueOf(val);
     }
 }
 
