@@ -88,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
                 hideUI();
                 showScore();
-                                    //// TODO: 10/29/2016 Implement reset FAB and method
-
             }
         };
 
@@ -295,5 +293,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 //// TODO: 10/30/2016 Add progress ring 
-//// TODO: 10/30/2016 Add app intro guide
+//// TODO: 10/30/2016 Implement dismiss option
+//// TODO: 10/30/2016 Use textView instead of toast
 
