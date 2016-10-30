@@ -28,4 +28,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.0.0'
     compile 'com.github.javiersantos:MaterialStyledDialogs:2.0'
+    compile 'com.getkeepsafe.taptargetview:taptargetview:1.5.0'
+    compile 'com.github.HotBitmapGG:RingProgressBar:V1.2.2'
+
 }

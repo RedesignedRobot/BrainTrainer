@@ -253,4 +253,4 @@ public class MainActivity extends AppCompatActivity {
 
 
 //// TODO: 10/30/2016 Add progress ring 
-//// TODO: 10/30/2016 Add app intro guide 
+//// TODO: 10/30/2016 Add app intro guide
