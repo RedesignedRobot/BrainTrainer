@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,10 +12,14 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.github.javiersantos.materialstyleddialogs.enums.Style;
 
 import java.util.Random;
+import java.util.logging.StreamHandler;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,14 +27,36 @@ public class MainActivity extends AppCompatActivity {
     TextView timerText,eqText,scoreText,choice1,choice2,choice3,choice4;
     Button start;
     CountDownTimer countDownTimer;
-    Random random = new Random();
     boolean isTimerStarted=false;
     int a=0,b=0,ans=0,score=0,totalQ=0;
+    Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        new TapTargetSequence(this)
+                .targets(
+                        TapTarget.forView(findViewById(R.id.start), "Click here to begin.")
+                        .drawShadow(true)
+                        .tintTarget(true)
+                        .cancelable(false)
+                        ,
+                        TapTarget.forView(findViewById(R.id.scoreText), "Here's the score.")
+                        .drawShadow(true)
+                        .tintTarget(true)
+                        .cancelable(false)
+                        ,
+                        TapTarget.forView(findViewById(R.id.timerText), "You have 30 seconds.")
+                         .drawShadow(true)
+                         .tintTarget(true)
+                        .cancelable(false)
+                ) .start();
+
+
+
+
 
         timerText=(TextView)findViewById(R.id.timerText);
         start=(Button)findViewById(R.id.start);
@@ -47,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         choice4.setOnClickListener(onClickListener);
 
         initLayout();
-
 
         countDownTimer = new CountDownTimer(30000,1000) {
             @Override
@@ -85,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View view) {
 
             //Log.d("onClick",getResourceName(view));
-            buttonSetup();
             validate(view);
 
         }
@@ -93,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
     void generateEq()
     {
-
         a=random.nextInt(50);
         b=random.nextInt(50);
         ans=a+b;
@@ -141,32 +165,37 @@ public class MainActivity extends AppCompatActivity {
 
     void buttonSetup()
     {
-        //// TODO: 10/29/2016 Setup sequence buttonSetup() -> validate() -> updateScore() -> generateEq() -> buttonSetup()
-        int index = random.nextInt(3);
+        //// TODO: 10/29/2016 Setup sequence buttonSetup() -> validate() -> updateScore() -> generateEq() -> buttonSetup
+        int index = random.nextInt(4);
+        Log.d("Random value", String.valueOf(index));
         switch (index){
-            case 1:{
+            case 0:{
                 choice1.setText(String.valueOf(ans));
                 choice2.setText(String.valueOf(ans+random.nextInt(50)));
                 choice3.setText(String.valueOf(ans+random.nextInt(50)));
                 choice4.setText(String.valueOf(ans+random.nextInt(50)));
+                break;
             }
-            case 2:{
+            case 1:{
                 choice2.setText(String.valueOf(ans));
                 choice3.setText(String.valueOf(ans+random.nextInt(50)));
                 choice4.setText(String.valueOf(ans+random.nextInt(50)));
                 choice1.setText(String.valueOf(ans+random.nextInt(50)));
+                break;
             }
-            case 3:{
+            case 2:{
                 choice3.setText(String.valueOf(ans));
                 choice4.setText(String.valueOf(ans+random.nextInt(50)));
                 choice2.setText(String.valueOf(ans+random.nextInt(50)));
                 choice1.setText(String.valueOf(ans+random.nextInt(50)));
+                break;
             }
-            case 4:{
+            case 3:{
                 choice4.setText(String.valueOf(ans));
                 choice1.setText(String.valueOf(ans+random.nextInt(50)));
                 choice2.setText(String.valueOf(ans+random.nextInt(50)));
                 choice3.setText(String.valueOf(ans+random.nextInt(50)));
+                break;
             }
         }
     }
@@ -248,9 +277,9 @@ public class MainActivity extends AppCompatActivity {
         countDownTimer.cancel();
         isTimerStarted=false;
     }
-
 }
 
 
 //// TODO: 10/30/2016 Add progress ring 
 //// TODO: 10/30/2016 Add app intro guide
+
